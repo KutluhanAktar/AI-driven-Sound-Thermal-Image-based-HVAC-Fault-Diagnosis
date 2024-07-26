@@ -1,0 +1,22 @@
+html{background-color:#99C9DF;font-family: 'Kanit', serif;}
+h1{color:#002699;font-weight:bold;text-align:center;user-select:none;line-height:15px;}
+
+.head_img{display:block;position:relative;width:80%;height:auto;margin:auto;}
+
+.category_menu{display:block;width:65%;height:auto;text-align:center;margin:auto;margin-top:20px;padding-top:25px;padding-bottom:25px;background-color:#4F2F90;border:10px solid #7683B7;border-radius:25%;}
+.category_menu button{background-color:#F99F60;border:5px solid #F1D4CC;border-radius:10px;padding:5px;padding-left:10px;padding-right:10px;margin-top:5px;margin-bottom:5px;font-family: 'Kanit', serif;color:#F1D4CC;font-weight:bold;}
+.category_menu button:hover{background-color:#99C9DF;cursor:pointer;}
+.category_menu button.active{background-color:#5453A3;cursor:pointer;}
+
+.log_updates{display:grid;grid-auto-rows:500px;grid-template-columns:repeat(auto-fill, 300px);grid-gap:30px;justify-content: center;position:relative;width:95%;margin:auto;padding-top:20px;padding-bottom:20px;background-color:#5453A3;margin-top:20px;margin-bottom:20px;}
+.log_updates section{position:relative;background-color:#FFA885;width:300px;height:500px;}
+.log_updates section p{color:#B13559;user-select:none;padding-left:20px;line-height:70%;} 
+.log_updates section h2{color:#51427B;user-select:none;padding-left:10px;}
+.log_updates section img{position:relative;width:300px;height:300px;}
+.overlay{position:absolute;top:0;left:0;width:120px;height:120px;-webkit-clip-path: polygon(0 0, 0% 100%, 100% 0);clip-path: polygon(0 0, 0% 100%, 100% 0);transition:1s;}
+.overlay button{display:block;position:absolute;width:90px;height:90px;top:100px;left:100px;border:5px solid #FFA885;background-color:#641334;border-radius:50%;color:#8BC3DE;font-weight:bold;font-size:35px;cursor:pointer;}
+.overlay button:hover{background-color:lightgray;}
+.log_updates section:hover .overlay{width:300px;height:300px;-webkit-clip-path: inset(0 0 0 0);clip-path: inset(0 0 0 0);transition:1s;}
+.overlay.thermal_sample{background-color:rgba(143, 197, 221, 0.65);}
+.overlay.thermal_detect{background-color:rgba(100, 19, 52, 0.65);}
+.overlay.audio_sample{background-color:rgba(112, 128, 144, 0.65);}
