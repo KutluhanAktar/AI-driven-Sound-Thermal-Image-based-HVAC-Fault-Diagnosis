@@ -1,7 +1,7 @@
 # AI-driven-Sound-Thermal-Image-based-HVAC-Fault-Diagnosis
 Identify the faulty components via anomalous sound detection and diagnose ensuing cooling malfunctions via thermal visual anomaly detection.
 
-**You can inspect the step-by-step project tutorial on [Hackster](https://www.hackster.io/kutluhan-aktar).**
+**You can inspect the step-by-step project tutorial on [Hackster](https://www.hackster.io/kutluhan-aktar/ai-driven-sound-thermal-image-based-hvac-fault-diagnosis-27084c).**
 
 ## Description
 
