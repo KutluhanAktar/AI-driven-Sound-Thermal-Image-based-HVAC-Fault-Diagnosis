@@ -1,45 +1,19 @@
-# AI-driven-Sound-Thermal-Image-based-HVAC-Fault-Diagnosis
+> I recently developed my portfolio website — kutluhanaktar.com — from scratch and decided to migrate all of my codebase to GitHub to provide a simple and straightforward experimentation or replication method for my proof-of-concept projects. Nonetheless, since I focused on demonstrating my thought process and experiment results thoroughly in the written tutorial format, including but not limited to PCB and 3D model designing steps, I could not provide enough information to fully explain my concepts and instructions via GitHub descriptions only. Thus, I highly recommend inspecting the associated project tutorials and videos on my portfolio website or other platforms (maker communities), i.e., Hackster, Hackaday, and Instructables.
+
+# Description
+
 Identify the faulty components via anomalous sound detection and diagnose ensuing cooling malfunctions via thermal visual anomaly detection.
 
-**You can inspect the step-by-step project tutorial on [Hackster](https://www.hackster.io/kutluhan-aktar/ai-driven-sound-thermal-image-based-hvac-fault-diagnosis-27084c).**
+# Original Project Publication Date
 
-## Description
+**August 5, 2024**
 
-After perusing recent research papers on detecting component failures to automate HVAC maintenance, I noticed that there are no practical applications focusing on identifying component abnormalities of intricate water-based HVAC systems to diagnose consecutive thermal cooling malfunctions before instigating hazardous effects on both production quality and the environment. Hence, I decided to build a versatile multi-model AIoT device to detect anomalous sound emanating from cooling fans via a neural network model and to diagnose consecutive thermal cooling malfunctions based on specifically produced thermal images via a visual anomaly detection model. In addition to AI-driven features, I decided to develop a capable and feature-rich web application (dashboard) to improve user experience and make data transfer easier between development boards.
+# Inspect the project tutorial on:
 
-As I started to work on developing my AI-powered device features, I realized that no available open-source data sets were fulfilling the purpose of multi-model HVAC malfunction diagnosis. Thus, since I did not have the resources to collect data from an industrial-level HVAC system, I decided to build a simplified HVAC system simulating the required component failures for data collection and in-field model testing. I got heavily inspired by PC (computer) water cooling systems while designing my simplified HVAC system. Similar to a closed-loop PC water cooling design, I built my system by utilizing a water pump, plastic tubings, an aluminum radiator, and aluminum blocks. As for the coolant reservoir, I decided to design a custom one and print the parts with my 3D printer. Nonetheless, since I decided to produce a precise thermal image by scanning cooling components, I still needed an additional mechanism to move a thermal camera on the targeted components — aluminum blocks. Thus, I decided to design a fully 3D-printable CNC router with the thermal camera container head to position the thermal camera, providing an automatic homing sequence. My custom CNC router is controlled by Arduino Nano and consists of a 28BYJ-48 stepper motor, GT2 pulleys, a timing belt, and gear clamps. While producing thermal images and running the visual anomaly detection model, I simply added an aquarium heater to the closed-water loop in order to instantiate aluminum block cooling malfunctions.
-
-As mentioned earlier, to provide full-fledged AIoT features with seamless integration and simplify complex data transfer procedures between development boards while constructing separate data sets and running multiple models, I decided to develop a versatile web application (dashboard) from scratch. To briefly summarize, the web dashboard can receive audio buffers via HTTP POST requests, save audio samples by given classes, communicate with the Particle Cloud to obtain variables or make Particle boards register them, produce thermal images from thermal imaging buffers to store image samples, and run the visual anomaly detection model on the generated thermal images. In the following tutorial, you can inspect all web dashboard features in detail.
-
-Since this is a multi-model AI-oriented project, I needed to construct two different data sets and train two separate machine learning models in order to build a capable device. First, I focused on constructing a valid audio data set for detecting anomalous sound originating from cooling fans. Since XIAO ESP32C6 is a compact and high-performance IoT development board providing 512KB SRAM and 4 MB Flash, I decided to utilize XIAO ESP32C6 to collect audio samples and run my neural network model for anomalous sound detection. To generate fast and accurate audio samples (buffers), I decided to use a Fermion I2S MEMS microphone. Also, I connected an SSD1306 OLED display and four control buttons to program a feature-rich on-device user interface. After collecting an audio sample, XIAO ESP32C6 transfers it to the web dashboard for data collection. As mentioned earlier, I designed my custom CNC router based on Arduino Nano due to its operating voltage. To provide seamless device operations, XIAO ESP32C6 communicates with Arduino Nano to move the thermal camera container head.
-
-After completing constructing my audio data set, I built my neural network model (Audio MFE) with Edge Impulse to detect sound-based cooling fan abnormalities. Audio MFE models employ a non-linear scale in the frequency domain, called Mel-scale, and perform well on audio data, mostly for non-voice recognition. Since Edge Impulse is nearly compatible with all microcontrollers and development boards, I have not encountered any issues while uploading and running my Audio MFE model on XIAO ESP32C6. As labels, I simply differentiated the collected audio samples by the cooling fan failure presence:
-
-- normal
-- defective
-
-After training and testing my neural network model (Audio MFE), I deployed the model as an Arduino library and uploaded it to XIAO ESP32C6. Therefore, the device is capable of detecting anomalous sound emanating from the cooling fans by running the neural network model onboard without any additional procedures or latency.
-
-Since I wanted to employ the secure and reliable Particle Cloud as a proxy to transfer thermal imaging (scan) buffers to the web dashboard, I decided to utilize Photon 2, which is a feature-packed IoT development board optimized for cloud prototyping. To collect accurate thermal imaging buffers, I employed an MLX90641 thermal imaging camera producing 16x12 IR arrays (buffers) with fully calibrated 110° FOV (field-of-view). Also, I connected an ST7735 TFT display and an analog joystick to program a secondary on-device user interface. Even though I managed to create a snapshot (preview) image from the collected thermal scan buffers, Photon 2 is not suitable for generating thermal images, saving image samples, and running a demanding visual anomaly detection model simultaneously due to memory limitations. Therefore, after registering the collected thermal scan buffers to the Particle Cloud, I utilized the web dashboard to obtain the registered buffers via the Particle Cloud API, produce thermal image samples, and run the visual anomaly detection model.
-
-Considering the requirements of producing accurate thermal images and running a visual anomaly detection model, I decided to host my web application (dashboard) on a LattePanda Mu (x86 Compute Module). Combined with its Lite Carrier board, LattePanda Mu is a promising single-board computer featuring an Intel N100 quad-core processor with 64 GB onboard storage.
-
-After completing constructing my thermal image data set, I built my visual anomaly detection model with Edge Impulse to diagnose ensuing thermal cooling malfunctions after applying anomalous sound detection to the water-based HVAC system. Since analyzing cooling anomalies based on thermal images of HVAC system components is a complicated task, I decided to employ an advanced and precise machine learning algorithm based on the GMM anomaly detection algorithm and FOMO. Supported by Edge Impulse Enterprise, FOMO-AD is an exceptional algorithm for detecting unanticipated defects by applying unsupervised learning techniques. Since Edge Impulse is nearly compatible with all microcontrollers and development boards, I have not encountered any issues while uploading and running my FOMO-AD model on LattePanda Mu. As labels, I utilized the default classes required by Edge Impulse to enable the F1 score calculation:
-
-- no anomaly
-- anomaly
-
-After training and testing my FOMO-AD visual anomaly detection model, I deployed the model as a Linux (x86_64) application (.eim) and uploaded it to LattePanda Mu. Thus, the web dashboard is capable of diagnosing thermal cooling anomalies based on the specifically produced thermal images by running the visual anomaly detection model on the server (LattePanda Mu) without any additional procedures, reduced accuracy, or latency.
-
-In addition to the discussed features, the web dashboard informs the user of the latest system log updates (completed operations) on the home (index) page automatically and sends an SMS to the verified phone number via Twilio so as to notify the user of the latest cooling status.
-
-Considering the complex structure of this device based on a customized water-based HVAC system, I decided to design two unique PCBs after testing the prototype connections via breadboards. Since I wanted my PCB designs to represent the equilibrium of cooling fan failures and thermal (heat) malfunctions, I got inspired by two ancient rival Pokémon — Kyogre and Groudon.
-
-Finally, in addition to the custom CNC router and coolant reservoir parts, I designed a plethora of complementary 3D parts, from unique PCB encasements to radiator mounts, so as to make the device as robust and compact as possible. To print flexible parts handling water pressure, I utilized a color-changing TPU filament.
-
-So, this is my project in a nutshell 😃
-
-## Demonstration
+- **[kutluhanaktar.com](https://www.kutluhanaktar.com/projects/AI_driven_Sound_and_Thermal_Image_based_HVAC_Fault_Diagnosis/)**
+- **[Hackster](https://www.hackster.io/kutluhan-aktar/ai-driven-sound-thermal-image-based-hvac-fault-diagnosis-27084c)**
+- **[Instructables](https://www.instructables.com/AI-driven-Sound-Thermal-Image-based-HVAC-Fault-Dia/)**
+- **[Hackaday](https://hackaday.io/project/197238-ai-driven-sound-and-thermal-hvac-fault-diagnosis)**
 
 ![1](https://github.com/user-attachments/assets/9f640047-55af-40a9-b9cd-c079a08387e8)
 
